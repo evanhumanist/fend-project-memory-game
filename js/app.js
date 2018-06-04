@@ -9,9 +9,10 @@
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
-const cardsContent = document.querySelectorAll('.card > i'); //targets the content of the cards
+const cardsContent = document.querySelectorAll('.card > i'); //Targets the content of the cards
 let deckArray = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb', 'fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb']; //Our array of card items
 const card = document.querySelector('.deck');
+let firstCard = ''; //Keeps track of first selected card
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -28,6 +29,28 @@ function shuffle(array) {
     return array;
 }
 
+//Card match function
+function cardClicked(evt) {
+    if (evt.target.nodeName == 'LI' && ! evt.target.classList.contains('open')) {
+        if (firstCard == '') {
+            evt.target.classList.toggle('open');
+            setTimeout(function (){
+              evt.target.classList.toggle('show');
+            }, 0);
+            firstCard = evt.target.firstElementChild.classList.toString();
+        } else if (evt.target.firstElementChild.classList.toString() == firstCard) {
+            evt.target.classList.toggle('open');
+            setTimeout(function (){
+              evt.target.classList.toggle('show');
+            }, 0);
+            firstCard = '';
+        } else {
+            // console.log(evt.target.firstElementChild.classList);
+            // console.log(firstCard);
+        };
+    };
+}
+
 //Shuffles the deck and initializes the items on the cards
 deckArray = shuffle(deckArray);
 for(const index in deckArray) {
@@ -35,14 +58,7 @@ for(const index in deckArray) {
 };
 
 //Flips cards when clicked
-card.addEventListener( 'click', function(evt) {
-    if (evt.target.nodeName == 'LI') {
-        evt.target.classList.toggle('open');
-        setTimeout(function (){
-          evt.target.classList.toggle('show');
-        }, 0);
-    };
-});
+card.addEventListener('click', cardClicked);
 
 /*
  * set up the event listener for a card. If a card is clicked:
