@@ -9,6 +9,8 @@
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
+const cardsContent = document.querySelectorAll('.card > i'); //targets the content of the cards
+let deckArray = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb', 'fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb']; //Our array of card items
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -25,6 +27,14 @@ function shuffle(array) {
     return array;
 }
 
+//Shuffles the deck and initializes the items on the cards
+deckArray = shuffle(deckArray);
+for(const index in deckArray) {
+    cardsContent[index].classList.toggle(deckArray[index]);
+};
+
+//Flips cards when clicked
+//To do: check if we have the card selected
 const card = document.querySelector('.deck');
 card.addEventListener( 'click', function(evt) {
   evt.target.classList.toggle('open');
