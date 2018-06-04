@@ -13,10 +13,11 @@ const cardsContent = document.querySelectorAll('.card > i'); //Targets the conte
 let deckArray = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb', 'fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb']; //Our array of card items
 const card = document.querySelector('.deck');
 let firstCard = ''; //Keeps track of first selected card
+let cardFlipping = false;
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+    let currentIndex = array.length, temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
@@ -31,22 +32,44 @@ function shuffle(array) {
 
 //Card match function
 function cardClicked(evt) {
-    if (evt.target.nodeName == 'LI' && ! evt.target.classList.contains('open')) {
-        if (firstCard == '') {
+    if (evt.target.nodeName === 'LI' && ! evt.target.classList.contains('open') && ! evt.target.classList.contains('match') && cardFlipping === false) {
+        if (firstCard === '') {
+            cardFlipping = true;
             evt.target.classList.toggle('open');
             setTimeout(function (){
               evt.target.classList.toggle('show');
-            }, 0);
-            firstCard = evt.target.firstElementChild.classList.toString();
-        } else if (evt.target.firstElementChild.classList.toString() == firstCard) {
+              cardFlipping = false;
+            }, 200);
+            firstCard = evt.target;
+        } else if (evt.target.firstElementChild.classList.toString() === firstCard.firstElementChild.classList.toString()) {
+            cardFlipping = true;
             evt.target.classList.toggle('open');
             setTimeout(function (){
               evt.target.classList.toggle('show');
-            }, 0);
-            firstCard = '';
+            }, 200);
+            setTimeout(function (){
+              evt.target.classList.replace('open', 'match');
+              firstCard.classList.replace('open', 'match');
+              firstCard = '';
+              cardFlipping = false;
+            }, 500);
         } else {
-            // console.log(evt.target.firstElementChild.classList);
-            // console.log(firstCard);
+            cardFlipping = true;
+            evt.target.classList.toggle('open');
+            setTimeout(function (){
+              evt.target.classList.toggle('show');
+            }, 200);
+            setTimeout(function (){
+                evt.target.classList.replace('open', 'mismatch');
+                firstCard.classList.replace('open', 'mismatch');
+            }, 500);
+            setTimeout(function (){
+                evt.target.classList.remove('mismatch', 'show');
+                firstCard.classList.remove('mismatch', 'show');
+                console.log(firstCard);
+                firstCard = '';
+                cardFlipping = false;
+            }, 1000);
         };
     };
 }
