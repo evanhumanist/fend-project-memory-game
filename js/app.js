@@ -11,6 +11,7 @@
  */
 const cardsContent = document.querySelectorAll('.card > i'); //targets the content of the cards
 let deckArray = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb', 'fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb']; //Our array of card items
+const card = document.querySelector('.deck');
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -34,14 +35,13 @@ for(const index in deckArray) {
 };
 
 //Flips cards when clicked
-//To do: check if we have the card selected
-const card = document.querySelector('.deck');
 card.addEventListener( 'click', function(evt) {
-  evt.target.classList.toggle('open');
-  setTimeout(function (){
-      evt.target.classList.toggle('show');
-  }, 0);
-  console.log(evt);
+    if (evt.target.nodeName == 'LI') {
+        evt.target.classList.toggle('open');
+        setTimeout(function (){
+          evt.target.classList.toggle('show');
+        }, 0);
+    };
 });
 
 /*
