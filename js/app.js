@@ -35,7 +35,7 @@ function cardClicked(evt) {
     if (evt.target.nodeName === 'LI' && ! evt.target.classList.contains('open') && ! evt.target.classList.contains('match') && cardFlipping === false) {
         if (firstCard === '') {
             cardFlipping = true;
-            evt.target.classList.toggle('open');
+            evt.target.classList.replace('closed', 'open');
             setTimeout(function (){
               evt.target.classList.toggle('show');
               cardFlipping = false;
@@ -43,7 +43,7 @@ function cardClicked(evt) {
             firstCard = evt.target;
         } else if (evt.target.firstElementChild.classList.toString() === firstCard.firstElementChild.classList.toString()) {
             cardFlipping = true;
-            evt.target.classList.toggle('open');
+            evt.target.classList.replace('closed', 'open');
             setTimeout(function (){
               evt.target.classList.toggle('show');
             }, 200);
@@ -55,7 +55,7 @@ function cardClicked(evt) {
             }, 500);
         } else {
             cardFlipping = true;
-            evt.target.classList.toggle('open');
+            evt.target.classList.replace('closed', 'open');
             setTimeout(function (){
               evt.target.classList.toggle('show');
             }, 200);
@@ -66,10 +66,11 @@ function cardClicked(evt) {
             setTimeout(function (){
                 evt.target.classList.remove('mismatch', 'show');
                 firstCard.classList.remove('mismatch', 'show');
-                console.log(firstCard);
+                evt.target.classList.toggle('closed');
+                firstCard.classList.toggle('closed');
                 firstCard = '';
                 cardFlipping = false;
-            }, 1000);
+            }, 1500);
         };
     };
 }
