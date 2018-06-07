@@ -10,10 +10,14 @@
  *   - add each card's HTML to the page
  */
 const cardsContent = document.querySelectorAll('.card > i'); //Targets the content of the cards
+const winContent = document.querySelector('.win');
 let deckArray = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb', 'fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb']; //Our array of card items
-const card = document.querySelector('.deck');
+const deck = document.querySelector('.deck');
+const HEADING = document.querySelector('.header-content');
+const SCORE_PANEL = document.querySelector('.score-panel');
 let firstCard = ''; //Keeps track of first selected card
 let cardFlipping = false;
+let matches = 0;
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -37,8 +41,8 @@ function cardClicked(evt) {
             cardFlipping = true;
             evt.target.classList.replace('closed', 'open');
             setTimeout(function (){
-              evt.target.classList.toggle('show');
-              cardFlipping = false;
+                evt.target.classList.toggle('show');
+                cardFlipping = false;
             }, 200);
             firstCard = evt.target;
         } else if (evt.target.firstElementChild.classList.toString() === firstCard.firstElementChild.classList.toString()) {
@@ -48,16 +52,25 @@ function cardClicked(evt) {
               evt.target.classList.toggle('show');
             }, 200);
             setTimeout(function (){
-              evt.target.classList.replace('open', 'match');
-              firstCard.classList.replace('open', 'match');
-              firstCard = '';
-              cardFlipping = false;
+                evt.target.classList.replace('open', 'match');
+                firstCard.classList.replace('open', 'match');
+                firstCard = '';
+                cardFlipping = false;
+                matches += 1;
+                if (matches === 1) {
+                    setTimeout(function () {
+                        deck.classList.toggle('hide');
+                        HEADING.classList.toggle('hide');
+                        SCORE_PANEL.classList.toggle('hide');
+                        winContent.classList.toggle('hide');
+                    }, 700);
+                };
             }, 500);
         } else {
             cardFlipping = true;
             evt.target.classList.replace('closed', 'open');
             setTimeout(function (){
-              evt.target.classList.toggle('show');
+                evt.target.classList.toggle('show');
             }, 200);
             setTimeout(function (){
                 evt.target.classList.replace('open', 'mismatch');
@@ -82,7 +95,7 @@ for(const index in deckArray) {
 };
 
 //Flips cards when clicked
-card.addEventListener('click', cardClicked);
+deck.addEventListener('click', cardClicked);
 
 /*
  * set up the event listener for a card. If a card is clicked:
