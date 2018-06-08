@@ -15,9 +15,12 @@ let deckArray = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-c
 const deck = document.querySelector('.deck');
 const HEADING = document.querySelector('.header-content');
 const SCORE_PANEL = document.querySelector('.score-panel');
+const MOVES = document.querySelector('.moves');
+const WIN_MOVES =  document.querySelector('.win-moves');
 let firstCard = ''; //Keeps track of first selected card
 let cardFlipping = false;
 let matches = 0;
+let moveCounter = 0;
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -34,56 +37,65 @@ function shuffle(array) {
     return array;
 }
 
+function increaseMoveCounter() {
+    moveCounter += 1;
+    console.log(moveCounter);
+    MOVES.textContent = moveCounter.toString();
+}
+
 //Card match function
 function cardClicked(evt) {
     if (evt.target.nodeName === 'LI' && ! evt.target.classList.contains('open') && ! evt.target.classList.contains('match') && cardFlipping === false) {
+        cardFlipping = true;
         if (firstCard === '') {
-            cardFlipping = true;
             evt.target.classList.replace('closed', 'open');
-            setTimeout(function (){
+            setTimeout(function () {
                 evt.target.classList.toggle('show');
                 cardFlipping = false;
             }, 200);
             firstCard = evt.target;
-        } else if (evt.target.firstElementChild.classList.toString() === firstCard.firstElementChild.classList.toString()) {
-            cardFlipping = true;
-            evt.target.classList.replace('closed', 'open');
-            setTimeout(function (){
-              evt.target.classList.toggle('show');
-            }, 200);
-            setTimeout(function (){
-                evt.target.classList.replace('open', 'match');
-                firstCard.classList.replace('open', 'match');
-                firstCard = '';
-                cardFlipping = false;
-                matches += 1;
-                if (matches === 1) {
-                    setTimeout(function () {
-                        deck.classList.toggle('hide');
-                        HEADING.classList.toggle('hide');
-                        SCORE_PANEL.classList.toggle('hide');
-                        winContent.classList.toggle('hide');
-                    }, 700);
-                };
-            }, 500);
         } else {
-            cardFlipping = true;
-            evt.target.classList.replace('closed', 'open');
-            setTimeout(function (){
-                evt.target.classList.toggle('show');
-            }, 200);
-            setTimeout(function (){
-                evt.target.classList.replace('open', 'mismatch');
-                firstCard.classList.replace('open', 'mismatch');
-            }, 500);
-            setTimeout(function (){
-                evt.target.classList.remove('mismatch', 'show');
-                firstCard.classList.remove('mismatch', 'show');
-                evt.target.classList.toggle('closed');
-                firstCard.classList.toggle('closed');
-                firstCard = '';
-                cardFlipping = false;
-            }, 1500);
+            increaseMoveCounter();
+            if (evt.target.firstElementChild.classList.toString() === firstCard.firstElementChild.classList.toString()) {
+                evt.target.classList.replace('closed', 'open');
+                setTimeout(function () {
+                    evt.target.classList.toggle('show');
+                }, 200);
+                setTimeout(function () {
+                    evt.target.classList.replace('open', 'match');
+                    firstCard.classList.replace('open', 'match');
+                    firstCard = '';
+                    cardFlipping = false;
+                    matches += 1;
+                    if (matches === 1) { //Todo: Should make this a mathematical function of array length
+                        setTimeout(function () {
+                            WIN_MOVES.textContent = moveCounter.toString();
+                            deck.classList.toggle('hide');
+                            HEADING.classList.toggle('hide');
+                            SCORE_PANEL.classList.toggle('hide');
+                            winContent.classList.toggle('hide');
+                        }, 700);
+                    }
+                    ;
+                }, 500);
+            } else {
+                evt.target.classList.replace('closed', 'open');
+                setTimeout(function () {
+                    evt.target.classList.toggle('show');
+                }, 200);
+                setTimeout(function () {
+                    evt.target.classList.replace('open', 'mismatch');
+                    firstCard.classList.replace('open', 'mismatch');
+                }, 500);
+                setTimeout(function () {
+                    evt.target.classList.remove('mismatch', 'show');
+                    firstCard.classList.remove('mismatch', 'show');
+                    evt.target.classList.toggle('closed');
+                    firstCard.classList.toggle('closed');
+                    firstCard = '';
+                    cardFlipping = false;
+                }, 1500);
+            };
         };
     };
 }
