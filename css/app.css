@@ -175,6 +175,18 @@ h1 {
     animation: win .7s;
 }
 
+.win-button {
+    background-color: #00B9A9;
+    max-width: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 @keyframes win {
     15% { transform: scaleX(1.2) scaleY(1.2); }
     55% { transform: scaleX(.8) scaleY(.8); }
