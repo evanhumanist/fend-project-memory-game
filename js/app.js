@@ -11,16 +11,20 @@
  */
 const cardsContent = document.querySelectorAll('.card > i'); //Targets the content of the cards
 const winContent = document.querySelector('.win');
-let deckArray = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb', 'fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb']; //Our array of card items
+let deckArray = ['fa-gem', 'fa-paper-plane', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb', 'fa-gem', 'fa-paper-plane', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb']; //Our array of card items
 const deck = document.querySelector('.deck');
 const HEADING = document.querySelector('.header-content');
 const SCORE_PANEL = document.querySelector('.score-panel');
 const MOVES = document.querySelector('.moves');
-const WIN_MOVES =  document.querySelector('.win-moves');
+const WIN_MOVES = document.querySelector('.win-moves');
+const WIN_STARS = document.querySelector('.win-stars');
+const STAR2 = document.querySelector('.stars').getElementsByClassName('fa-star')[1];
+const STAR3 = document.querySelector('.stars').getElementsByClassName('fa-star')[2];
 let firstCard = ''; //Keeps track of first selected card
 let cardFlipping = false;
 let matches = 0;
 let moveCounter = 0;
+let stars = 3;
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -39,8 +43,19 @@ function shuffle(array) {
 
 function increaseMoveCounter() {
     moveCounter += 1;
-    console.log(moveCounter);
     MOVES.textContent = moveCounter.toString();
+}
+
+function starCheck() {
+    if (moveCounter === 12) {
+        STAR3.classList.toggle('fas');
+        STAR3.classList.toggle('far');
+        stars -= 1;
+    } else if (moveCounter === 18) {
+        STAR2.classList.toggle('fas');
+        STAR2.classList.toggle('far');
+        stars -= 1;
+    }
 }
 
 //Card match function
@@ -56,6 +71,7 @@ function cardClicked(evt) {
             firstCard = evt.target;
         } else {
             increaseMoveCounter();
+            starCheck();
             if (evt.target.firstElementChild.classList.toString() === firstCard.firstElementChild.classList.toString()) {
                 evt.target.classList.replace('closed', 'open');
                 setTimeout(function () {
@@ -67,9 +83,14 @@ function cardClicked(evt) {
                     firstCard = '';
                     cardFlipping = false;
                     matches += 1;
-                    if (matches === 1) { //Todo: Should make this a mathematical function of array length
+                    if (matches === deckArray.length / 2 ) {
                         setTimeout(function () {
                             WIN_MOVES.textContent = moveCounter.toString();
+                            if (stars === 1) {
+                                WIN_STARS.textContent = "1 star";
+                            } else {
+                                WIN_STARS.textContent = stars + " stars";
+                            };
                             deck.classList.toggle('hide');
                             HEADING.classList.toggle('hide');
                             SCORE_PANEL.classList.toggle('hide');
