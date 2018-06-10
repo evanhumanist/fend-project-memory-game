@@ -20,7 +20,7 @@ let matches = 0; //Keeps track of the amount of matches to trigger a win
 let moveCounter = 0; //Keeps track of the amount of moves
 let stars = 3; //Keeps track of the amount of stars
 let secondsRunning = 0; //Timer
-let timerStop = false;
+let timerStop = false; //Whether the Timer should update or not
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -63,19 +63,19 @@ function win() {
     timerStop = true;
     WIN_MOVES.textContent = moveCounter.toString();
     if (stars === 1) {
-        WIN_STARS.textContent = "1 star";
+        WIN_STARS.textContent = '1 star';
     } else {
-        WIN_STARS.textContent = stars + " stars";
-    };
+        WIN_STARS.textContent = stars + ' stars';
+    }
     if (secondsRunning > 59) {
         if (secondsRunning < 120) {
             minuteText = ' Minute';
         }
         TIME_ELAPSED_MINUTES.textContent = Math.floor(secondsRunning / 60).toString() + minuteText;
-    };
+    }
     if (secondsRunning % 60 === 1) {
         secondText = ' Second';
-    };
+    }
     TIME_ELAPSED_SECONDS.textContent = (secondsRunning % 60).toString() + secondText;
     DECK.classList.toggle('hide');
     HEADING.classList.toggle('hide');
@@ -85,16 +85,17 @@ function win() {
 
 //React to cards being clicked, match/mismatch/win
 function cardClicked(evt) {
+    //If we are targeting a card that is not open and not matched and there is no card flip in progress
     if (evt.target.nodeName === 'LI' && ! evt.target.classList.contains('open') && ! evt.target.classList.contains('match') && cardFlipping === false) {
         cardFlipping = true;
-        if (firstCard === '') {
+        if (firstCard === '') { //Open the first card
             evt.target.classList.replace('closed', 'open');
             setTimeout(function () {
                 evt.target.classList.toggle('show');
                 cardFlipping = false;
             }, 200);
             firstCard = evt.target;
-        } else {
+        } else { //We are targeting the second card
             increaseMoveCounter();
             starCheck();
 
@@ -114,7 +115,7 @@ function cardClicked(evt) {
                         setTimeout(function () {
                             win();
                         }, 700);
-                    };
+                    }
                 }, 500);
             } else { //Not a match
                 evt.target.classList.replace('closed', 'open');
@@ -133,19 +134,18 @@ function cardClicked(evt) {
                     firstCard = '';
                     cardFlipping = false;
                 }, 1500);
-            };
-        };
-    };
+            }
+        }
+    }
 }
 
 //Starts/restarts the game
 function restart() {
     if (cardFlipping === false) {
-        //Shuffles the deck and initializes the items on the cards
-        deckArray = shuffle(deckArray);
-        for(const index in deckArray) {
-            CARD[index].classList = "card closed";
-            CARDS_CONTENT[index].classList = "fas";
+        deckArray = shuffle(deckArray); //Shuffles the deck and initializes the items on the cards
+        for(const index in deckArray) { //Resets the game and all counters
+            CARD[index].classList = 'card closed';
+            CARDS_CONTENT[index].classList = 'fas';
             CARDS_CONTENT[index].classList.toggle(deckArray[index]);
             stars = 3;
             STARS[1].classList = 'fas fa-star';
@@ -158,12 +158,12 @@ function restart() {
             SCORE_PANEL.classList.toggle('hide', false);
             WIN_CONTENT.classList.toggle('hide', true);
             secondsRunning = 0;
-            TIMER.textContent = "00:00";
+            TIMER.textContent = '00:00';
             timerStop = false;
-        };
-    };
+        }
+    }
 
-};
+}
 
 //Runs the restart function when the code first runs
 restart();
@@ -184,15 +184,15 @@ setInterval(function() {
             secondsRunning += 1;
             minutesRunning = Math.floor(secondsRunning / 60);
             if (minutesRunning < 10) {
-                minutesFormatted = "0" + minutesRunning.toString();
+                minutesFormatted = '0' + minutesRunning.toString();
             } else {
                 minutesFormatted = minutesRunning.toString();
-            };
+            }
             if (secondsRunning % 60 < 10) {
-                secondsFormatted = "0" + (secondsRunning % 60).toString();
+                secondsFormatted = '0' + (secondsRunning % 60).toString();
             } else {
                 secondsFormatted = (secondsRunning % 60).toString();
-            };
+            }
             TIMER.textContent = minutesFormatted + ':' + secondsFormatted;
         }
     }, 1000);
