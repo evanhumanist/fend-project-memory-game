@@ -1,21 +1,21 @@
 const CARDS_CONTENT = document.querySelectorAll('.card > i'); //Targets the content of the cards
-const CARD = document.querySelectorAll('.card');
-const WIN_CONTENT = document.querySelector('.win');
+const CARD = document.querySelectorAll('.card'); //Targets the cards directly
+const WIN_CONTENT = document.querySelector('.win'); //Targets the Win section
 let deckArray = ['fa-gem', 'fa-paper-plane', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb', 'fa-gem', 'fa-paper-plane', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb']; //Our array of card items
-const DECK = document.querySelector('.deck');
-const HEADING = document.querySelector('.header-container');
-const SCORE_PANEL = document.querySelector('.score-panel');
-const MOVES = document.querySelector('.moves');
-const WIN_MOVES = document.querySelector('.win-moves');
-const WIN_STARS = document.querySelector('.win-stars');
-const STARS = document.querySelector('.stars').getElementsByClassName('fa-star');
-const RESTART = document.querySelector('.restart');
-const WIN_BUTTON = document.querySelector('.win-button');
+const DECK = document.querySelector('.deck'); //Targets the Deck
+const HEADING = document.querySelector('.header-container'); //Targets the Heading section
+const SCORE_PANEL = document.querySelector('.score-panel'); //Targets the Score Panel
+const MOVES = document.querySelector('.moves'); //Targets the Moves counter in the Score Panel
+const WIN_MOVES = document.querySelector('.win-moves'); //Targets the moves section on the Win screen
+const WIN_STARS = document.querySelector('.win-stars'); //Targets the stars section on the Win screen
+const STARS = document.querySelector('.stars').getElementsByClassName('fa-star'); //Targets the Stars in the Score Panel
+const RESTART = document.querySelector('.restart'); //Targets the Restart button on the main screen
+const WIN_BUTTON = document.querySelector('.win-button'); //Targets the Restart button on the Win screen
 let firstCard = ''; //Keeps track of first selected card
-let cardFlipping = false;
-let matches = 0;
-let moveCounter = 0;
-let stars = 3;
+let cardFlipping = false; //Keeps track of if card flip is in process. If it is, then no other card can be flipped
+let matches = 0; //Keeps track of the amount of matches to trigger a win
+let moveCounter = 0; //Keeps track of the amount of moves
+let stars = 3; //Keeps track of the amount of stars
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
