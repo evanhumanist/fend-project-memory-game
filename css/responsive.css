@@ -1,4 +1,72 @@
+/*This is the responsive css file*/
 
+/*small*/
 @media screen and (max-width: 500px) {
+    .deck {
+        width: 100%;
+        padding: 5px;
+    }
 
+    .card {
+        margin: 5px;
+        width: calc((100% / 4) - 10px);
+        height: calc((100% / 4) - 10px);
+    }
+
+    .show {
+        font-size: 8vw;
+    }
+
+    .score-panel {
+        margin-left: 5%;
+        margin-right: 5%;
+    }
 }
+
+/*medium*/
+@media screen and (min-width: 501px) and (max-width: 800px){
+    .deck {
+        width: calc(100% - 100px);
+        padding: 10px;
+    }
+
+    .card {
+        margin: 10px;
+        width: calc((100% / 4) - 20px);
+        height: calc((100% / 4) - 20px);
+    }
+
+    .show {
+        font-size: 5vw;
+    }
+
+    .score-panel {
+        margin-left: 15%;
+        margin-right: 15%;
+    }
+}
+
+/*large*/
+@media screen and (min-width: 801px) {
+    .deck {
+        width: 680px;
+        padding: 20px;
+    }
+
+    .card {
+        margin: 10px;
+        width: calc((100% / 4) - 20px);
+        height: calc((100% / 4) - 20px);
+    }
+
+    .show {
+        font-size: 40px;
+    }
+
+    .score-panel {
+        margin-left: calc((100% / 2) - 320px);
+        margin-right: calc((100% / 2) - 320px);
+        font-size: 1.2em;
+    }
+}
+

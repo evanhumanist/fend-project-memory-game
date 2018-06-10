@@ -85,7 +85,7 @@ function cardClicked(evt) {
                     firstCard = '';
                     cardFlipping = false;
                     matches += 1;
-                    if (matches < deckArray.length / 2 ) {
+                    if (matches === deckArray.length / 2 ) {
                         setTimeout(function () {
                             WIN_MOVES.textContent = moveCounter.toString();
                             if (stars === 1) {
