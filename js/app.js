@@ -135,6 +135,7 @@ function restart() {
             STARS[1].classList = 'fas fa-star';
             STARS[2].classList = 'fas fa-star';
             moveCounter = 0;
+            matches = 0;
             MOVES.textContent = 0;
             deck.classList.toggle('hide', false);
             HEADING.classList.toggle('hide', false);
