@@ -1,3 +1,10 @@
+/*This is the main css file*/
+
+
+
+/*
+ *Common
+ */
 html {
     box-sizing: border-box;
 }
@@ -23,15 +30,15 @@ body {
 
 .container {
     display: flex;
-    /*justify-content: center;*/
-    /*align-items: center;*/
-    /*flex-direction: column;*/
     flex-wrap: wrap;
-    /*min-height: 800px;*/
-    /*height: 800px;*/
     height: 100vh;
 }
 
+
+
+/*
+ * Header
+ */
 .header-container {
     text-align: center;
     width: 100%;
@@ -49,9 +56,8 @@ body {
 
 
 /*
- * Styles for the Score Panel
+ * Score Panel / Restart Button
  */
-
 .score-panel {
     text-align: left;
     width: 100%;
@@ -75,10 +81,11 @@ body {
     cursor: pointer;
 }
 
-/*
- * Styles for the deck of cards
- */
 
+
+/*
+ * Deck of cards
+ */
 .deck {
     height: calc(100% - 135px);
     background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
@@ -152,6 +159,11 @@ body {
     100% { transform: rotate(1deg) translate(5px, 0) skewX(-2deg); }
 }
 
+
+
+/*
+ * Win Screen
+ */
 .win {
     text-align: center;
     /*min-height: 680px;*/
