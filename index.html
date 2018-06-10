@@ -1,22 +1,23 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>Matching Game</title>
-    <meta name="description" content="">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
-    <link rel="stylesheet" href="css/app.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Matching Game</title>
 </head>
 <body>
 
     <div class="container">
-        <header class="header-content">
-            <h1>Matching Game</h1>
+        <header class="header-container">
+            <h1 class="header-content">Matching Game</h1>
         </header>
 
         <div class="win hide">
-            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg"><circle class="checkmark__circle" cx="26" cy="26" r="100" fill="none"/><path class="checkmark__check" fill="none" d="M25 50 l20 14.2 30 -34.8"/></svg>
+            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg"><circle class="checkmark-circle" cx="26" cy="26" r="100" fill="none"/><path class="checkmark-check" fill="none" d="M25 50 l20 14.2 30 -34.8"/></svg>
             <h3 class="win-header">
                 Congratulations! You Won!
             </h3>
@@ -31,9 +32,9 @@
 
         <section class="score-panel">
         	<ul class="stars">
-        		<li><i class="fas fa-star"></i></li>
-        		<li><i class="fas fa-star"></i></li>
-        		<li><i class="fas fa-star"></i></li>
+        		<li class="stars-content"><i class="fas fa-star"></i></li>
+        		<li class="stars-content"><i class="fas fa-star"></i></li>
+        		<li class="stars-content"><i class="fas fa-star"></i></li>
         	</ul>
 
         	<span class="moves">0</span> Moves
